@@ -7,9 +7,10 @@
 //
 
 #import "RootViewController.h"
-
+#import "HangOutPlace.h"
 
 @interface RootViewController ()<UITableViewDataSource, UITableViewDelegate,CLLocationManagerDelegate>
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property CLLocationManager *locationManager;
@@ -25,43 +26,24 @@
     self.locationManager.delegate = self;
     [self updateCurrentLocation];
 }
+- (IBAction)segmentedControl:(id)sender {
+
+    [self updateCurrentLocation];
+}
 
 -(void)viewWillAppear:(BOOL)animated{
     [self updateCurrentLocation];
 }
-
--(void)reverseGeoCode:(CLLocation *)location
-{
-    CLGeocoder *geoCoder = [[CLGeocoder alloc]init];
-
-    [geoCoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
-
-
-//        for (CLPlacemark *placemark in placemarks) {
-//            NSLog(@"%@",placemark);
-//
-//
-//            [self findBars:placemark.location];
-//        }
-
-        CLPlacemark *placemark = placemarks.firstObject;
-        CLLocation *location = placemark.location;
-
-
-        //segemnted control right here
-        [self findBars:location];
-
-
-    }];
-
-
-}
-
 -(void)findBars:(CLLocation *)location{
 
     MKLocalSearchRequest *request = [[MKLocalSearchRequest alloc]init];
 
-    request.naturalLanguageQuery = @"bar";
+    if (self.segmentedControl.selectedSegmentIndex == 0) {
+        request.naturalLanguageQuery = @"beer";
+    }else{
+        request.naturalLanguageQuery = @"coffee";
+    }
+
     request.region = MKCoordinateRegionMake(location.coordinate, MKCoordinateSpanMake(2, 2));
 
     MKLocalSearch *search = [[MKLocalSearch alloc]initWithRequest:request];
@@ -71,13 +53,30 @@
         NSArray *mapItems = response.mapItems;
         MKMapItem *mapItem = [[MKMapItem alloc]init];
 
-       self.mutableArray = [NSMutableArray new];
+       NSMutableArray *mutableArray = [NSMutableArray new];
 
         for (int i = 0; i<7; i++) {
             mapItem = [mapItems objectAtIndex:i];
-            [self.mutableArray addObject:mapItem];
 
+            CLLocationDistance distanceInMeters = [mapItem.placemark.location distanceFromLocation:self.locationManager.location];
+            float mileD = distanceInMeters / 1609.34;
+
+            HangOutPlace *hangOutPlace= [[HangOutPlace alloc]init];
+            hangOutPlace.mapItem = mapItem;
+
+            hangOutPlace.distance = mileD;
+
+
+            // hangOutPlace.distance
+            [mutableArray addObject:hangOutPlace];
         }
+        NSSortDescriptor *sortD = [NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:true];
+
+        NSArray *sort = [mutableArray sortedArrayUsingDescriptors:@[sortD]];
+
+        self.mutableArray = [sort mutableCopy];
+        
+
         [self.tableView reloadData];
     }];
 }
@@ -89,7 +88,6 @@
     
 }
 
-
 #pragma mark locationManagerDelegate
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
 
@@ -98,9 +96,8 @@
         if (location.verticalAccuracy <1000 && location.horizontalAccuracy <1000) {
             //            NSLog(@"%@",location);
             [self.locationManager stopUpdatingLocation];
-
-            [self reverseGeoCode:location];
-
+            
+            [self findBars:location];
         }
         [self.locationManager stopUpdatingLocation];
         
@@ -116,9 +113,10 @@
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
 
-    MKMapItem *mapItem = [self.mutableArray objectAtIndex:indexPath.row];
+    MKMapItem *mapItem = [[self.mutableArray objectAtIndex:indexPath.row]mapItem];
 
     cell.textLabel.text = mapItem.name;
+
     return cell;
     
 }
