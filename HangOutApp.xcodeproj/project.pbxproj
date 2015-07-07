@@ -11,7 +11,6 @@
 		972D25551B4C69A90055CCA8 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 972D25541B4C69A90055CCA8 /* RootViewController.m */; };
 		972D25571B4C6AF50055CCA8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972D25561B4C6AF50055CCA8 /* CoreLocation.framework */; };
 		972D25591B4C6AFA0055CCA8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972D25581B4C6AFA0055CCA8 /* MapKit.framework */; };
-		972D255C1B4C6E3A0055CCA8 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 972D255B1B4C6E3A0055CCA8 /* LocationManager.m */; };
 		97AAA7101B4B5B98003CAA73 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 97AAA70F1B4B5B98003CAA73 /* main.m */; };
 		97AAA7131B4B5B98003CAA73 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 97AAA7121B4B5B98003CAA73 /* AppDelegate.m */; };
 		97AAA7161B4B5B98003CAA73 /* HangOutApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 97AAA7141B4B5B98003CAA73 /* HangOutApp.xcdatamodeld */; };
@@ -38,8 +37,6 @@
 		972D25541B4C69A90055CCA8 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RootViewController.m; path = ../RootViewController.m; sourceTree = "<group>"; };
 		972D25561B4C6AF50055CCA8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		972D25581B4C6AFA0055CCA8 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		972D255A1B4C6E3A0055CCA8 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
-		972D255B1B4C6E3A0055CCA8 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		97AAA70A1B4B5B98003CAA73 /* HangOutApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HangOutApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97AAA70E1B4B5B98003CAA73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97AAA70F1B4B5B98003CAA73 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -101,8 +98,6 @@
 				972D25511B4C698F0055CCA8 /* MapViewController.m */,
 				972D25531B4C69A90055CCA8 /* RootViewController.h */,
 				972D25541B4C69A90055CCA8 /* RootViewController.m */,
-				972D255A1B4C6E3A0055CCA8 /* LocationManager.h */,
-				972D255B1B4C6E3A0055CCA8 /* LocationManager.m */,
 				97AAA7111B4B5B98003CAA73 /* AppDelegate.h */,
 				97AAA7121B4B5B98003CAA73 /* AppDelegate.m */,
 				97AAA71A1B4B5B98003CAA73 /* Main.storyboard */,
@@ -240,7 +235,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				972D255C1B4C6E3A0055CCA8 /* LocationManager.m in Sources */,
 				97AAA7131B4B5B98003CAA73 /* AppDelegate.m in Sources */,
 				97AAA7161B4B5B98003CAA73 /* HangOutApp.xcdatamodeld in Sources */,
 				97AAA7101B4B5B98003CAA73 /* main.m in Sources */,

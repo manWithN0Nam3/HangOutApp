@@ -7,6 +7,7 @@
 //
 
 #import "RootViewController.h"
+#import "LocationManager.h"
 
 @interface RootViewController ()<UITableViewDataSource, UITableViewDelegate,CLLocationManagerDelegate>
 
@@ -22,6 +23,8 @@
     self.locationManager = [[CLLocationManager alloc]init];
     self.locationManager.delegate = self;
     [self updateCurrentLocation];
+//
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
