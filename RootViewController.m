@@ -7,7 +7,6 @@
 //
 
 #import "RootViewController.h"
-#import "LocationManager.h"
 
 @interface RootViewController ()<UITableViewDataSource, UITableViewDelegate,CLLocationManagerDelegate>
 
@@ -23,8 +22,6 @@
     self.locationManager = [[CLLocationManager alloc]init];
     self.locationManager.delegate = self;
     [self updateCurrentLocation];
-//
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -43,9 +40,17 @@
 
 
     for (CLLocation * location in locations) {
+        if (location.verticalAccuracy <1000 && location.horizontalAccuracy <1000) {
+            //            NSLog(@"%@",location);
+
+
+            [self.locationManager stopUpdatingLocation];
+            
+        }
         NSLog(@"%@",location);
+        [self.locationManager stopUpdatingLocation];
+
     }
-    [self.locationManager stopUpdatingLocation];
 
 
 }
