@@ -8,13 +8,14 @@
 
 #import "RootViewController.h"
 #import "HangOutPlace.h"
+#import "DetailVCViewController.h"
 
 @interface RootViewController ()<UITableViewDataSource, UITableViewDelegate,CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property CLLocationManager *locationManager;
-@property NSMutableArray *mutableArray;
+@property NSMutableArray *restaurants;
 @end
 
 @implementation RootViewController
@@ -66,8 +67,6 @@
             hangOutPlace.mapItem = mapItem;
 
             hangOutPlace.distance = mileD;
-
-
             // hangOutPlace.distance
             [mutableArray addObject:hangOutPlace];
         }
@@ -75,7 +74,7 @@
 
         NSArray *sort = [mutableArray sortedArrayUsingDescriptors:@[sortD]];
 
-        self.mutableArray = [sort mutableCopy];
+        self.restaurants = [sort mutableCopy];
         
 
         [self.tableView reloadData];
@@ -92,12 +91,9 @@
 #pragma mark locationManagerDelegate
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
 
-
     for (CLLocation * location in locations) {
         if (location.verticalAccuracy <1000 && location.horizontalAccuracy <1000) {
-            //            NSLog(@"%@",location);
             [self.locationManager stopUpdatingLocation];
-            
             [self findBars:location];
         }
         [self.locationManager stopUpdatingLocation];
@@ -114,14 +110,21 @@
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
 
-    MKMapItem *mapItem = [[self.mutableArray objectAtIndex:indexPath.row]mapItem];
+    MKMapItem *mapItem = [[self.restaurants objectAtIndex:indexPath.row]mapItem];
 
     cell.textLabel.text = mapItem.name;
 
     return cell;
-    
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+
+    DetailVCViewController *dVc = segue.destinationViewController;
+    MKMapItem *mapItem = [[self.restaurants objectAtIndex:self.tableView.indexPathForSelectedRow.row]mapItem];
+    dVc.nameLabel.text = mapItem.name;
+
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-   return self.mutableArray.count;
+   return self.restaurants.count;
 }
 @end
