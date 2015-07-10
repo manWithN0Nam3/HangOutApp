@@ -25,6 +25,7 @@
     self.locationManager = [[CLLocationManager alloc]init];
     self.locationManager.delegate = self;
     [self updateCurrentLocation];
+
 }
 - (IBAction)segmentedControl:(id)sender {
 
@@ -43,8 +44,8 @@
     }else{
         request.naturalLanguageQuery = @"coffee";
     }
-
-    request.region = MKCoordinateRegionMake(location.coordinate, MKCoordinateSpanMake(2, 2));
+                                                                    //make sure "MKCoordinateSpanMake" is not too small
+    request.region = MKCoordinateRegionMake(location.coordinate, MKCoordinateSpanMake(200, 200));
 
     MKLocalSearch *search = [[MKLocalSearch alloc]initWithRequest:request];
 
