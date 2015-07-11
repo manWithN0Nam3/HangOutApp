@@ -17,8 +17,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-  
+    self.nameLabel.text = self.mapItem.name;
+    NSLog(@"%@",self.mapItem);
+    NSLog(@"%@",self.mapItem.url);
+
+    NSLog(@"placemark:%@",self.mapItem.placemark);
+    self.phoneLabel.text = self.mapItem.phoneNumber;
+
 }
+- (IBAction)onUrlButtonTapped:(UIButton *)sender {
+
+
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"HTTP://WWW.APPLE.COM"]];
+
+    NSURL *url = self.mapItem.url;
+    [[UIApplication sharedApplication] openURL:url];
+
+}
+
+
 
 - (IBAction)getDirectionsButtonTapped:(id)sender {
 }

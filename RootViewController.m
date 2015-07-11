@@ -113,6 +113,7 @@
     MKMapItem *mapItem = [[self.restaurants objectAtIndex:indexPath.row]mapItem];
 
     cell.textLabel.text = mapItem.name;
+    
 
     return cell;
 }
@@ -121,7 +122,7 @@
 
     DetailVCViewController *dVc = segue.destinationViewController;
     MKMapItem *mapItem = [[self.restaurants objectAtIndex:self.tableView.indexPathForSelectedRow.row]mapItem];
-    dVc.nameLabel.text = mapItem.name;
+    dVc.mapItem = mapItem;
 
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

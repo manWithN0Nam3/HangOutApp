@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 
 @interface DetailVCViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *getDirectionsButton;
 @property (weak, nonatomic) IBOutlet UIButton *inviteButton;
+@property MKMapItem *mapItem;
+@property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
+@property (weak, nonatomic) IBOutlet UIButton *urlButton;
 
 @end
