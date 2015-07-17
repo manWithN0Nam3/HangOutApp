@@ -44,6 +44,7 @@
 - (IBAction)getDirectionsButtonTapped:(id)sender {
 
    MKMapItem *endingItem = [[MKMapItem alloc] initWithPlacemark:self.mapItem.placemark];
+    endingItem.name = self.mapItem.name;
 
     NSMutableDictionary *launchOptions = [[NSMutableDictionary alloc] init];
     [launchOptions setObject:MKLaunchOptionsDirectionsModeDriving forKey:MKLaunchOptionsDirectionsModeKey];
