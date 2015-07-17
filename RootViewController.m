@@ -46,7 +46,7 @@
         request.naturalLanguageQuery = @"coffee";
     }
                                                                     //make sure "MKCoordinateSpanMake" is not too small
-    request.region = MKCoordinateRegionMake(location.coordinate, MKCoordinateSpanMake(200, 200));
+    request.region = MKCoordinateRegionMake(location.coordinate, MKCoordinateSpanMake(1, 1));
 
     MKLocalSearch *search = [[MKLocalSearch alloc]initWithRequest:request];
 
@@ -57,7 +57,15 @@
 
        NSMutableArray *mutableArray = [NSMutableArray new];
 
-        for (int i = 0; i<7; i++) {
+        if (mapItems.count <=1) {
+            NSLog(@"no locations");
+            NSLog(@"%lu",(unsigned long)mapItems.count);
+
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"cannot detect any hangout place" message:nil delegate:nil cancelButtonTitle:@"Done" otherButtonTitles:nil, nil];
+            [alertView show];
+        }else{
+
+        for (int i = 0; i<4; i++) {
             mapItem = [mapItems objectAtIndex:i];
 
             CLLocationDistance distanceInMeters = [mapItem.placemark.location distanceFromLocation:self.locationManager.location];
@@ -69,7 +77,7 @@
             hangOutPlace.distance = mileD;
             // hangOutPlace.distance
             [mutableArray addObject:hangOutPlace];
-        }
+        }}
         NSSortDescriptor *sortD = [NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:true];
 
         NSArray *sort = [mutableArray sortedArrayUsingDescriptors:@[sortD]];
@@ -88,13 +96,32 @@
     
 }
 
+
+-(void)reverseGeoCode:(CLLocation *)location{
+    CLGeocoder *geoCoder = [CLGeocoder new];
+    [geoCoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        //        NSLog(@"%@",placemarks);
+
+        //what r all the objects in the nsarray? r there more than one object?
+        CLPlacemark *placemark = placemarks.firstObject;
+
+        NSLog(@"%@",placemark);
+
+//        self.textView.text = [NSString stringWithFormat:@"%@ %@ %@",placemark.locality, placemark.thoroughfare, placemark.postalCode];
+        NSLog(@"%@ and %@ and %@",placemark.locality, placemark.thoroughfare, placemark.postalCode);
+
+        [self findBars:location];
+    }];
+    
+}
 #pragma mark locationManagerDelegate
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
 
     for (CLLocation * location in locations) {
         if (location.verticalAccuracy <1000 && location.horizontalAccuracy <1000) {
-            [self.locationManager stopUpdatingLocation];
             [self findBars:location];
+            NSLog(@"%@----+++++",location);
+            [self reverseGeoCode:location];
         }
         [self.locationManager stopUpdatingLocation];
         

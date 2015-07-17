@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="c86-0U-rLT">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Root View Controller-->
@@ -118,6 +117,9 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="174" y="101" width="53" height="20.5"/>
+                                </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r4X-Mj-Miz">
                                 <rect key="frame" x="180" y="262" width="240" height="88"/>
@@ -143,15 +145,6 @@
                                     <action selector="inviteButtonTapped:" destination="1OF-7H-VA9" eventType="touchUpInside" id="CcM-as-uTH"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="phone #" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYn-F9-1ee">
-                                <rect key="frame" x="470" y="154" width="63" height="34"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="63" id="yoN-wA-j9R"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OmV-cT-gDH">
                                 <rect key="frame" x="138" y="149" width="67" height="39"/>
                                 <state key="normal" title="url">
@@ -161,27 +154,46 @@
                                     <action selector="onUrlButtonTapped:" destination="1OF-7H-VA9" eventType="touchUpInside" id="EVb-ns-Zis"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AvU-9H-Fkc">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="phone number">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="240" y="158" width="100" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="phoneButtonTapped:" destination="1OF-7H-VA9" eventType="touchUpInside" id="5x4-lw-FY2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="r4X-Mj-Miz" firstAttribute="top" secondItem="p4C-jR-gWF" secondAttribute="bottom" constant="83" id="BPj-ib-1o1"/>
                             <constraint firstItem="p4C-jR-gWF" firstAttribute="centerX" secondItem="r4X-Mj-Miz" secondAttribute="centerX" id="E1g-ot-LyG"/>
-                            <constraint firstItem="LcR-zH-zCb" firstAttribute="top" secondItem="bYn-F9-1ee" secondAttribute="bottom" constant="363" id="FsX-X3-vWB"/>
                             <constraint firstItem="LcR-zH-zCb" firstAttribute="top" secondItem="HdP-rS-q72" secondAttribute="bottom" constant="91" id="KzI-RG-hvh"/>
-                            <constraint firstItem="bYn-F9-1ee" firstAttribute="leading" secondItem="p4C-jR-gWF" secondAttribute="trailing" constant="43" id="O2l-Gc-KF9"/>
                             <constraint firstItem="HdP-rS-q72" firstAttribute="top" secondItem="r4X-Mj-Miz" secondAttribute="bottom" constant="22" id="QLM-yL-a2z"/>
                             <constraint firstItem="HdP-rS-q72" firstAttribute="centerX" secondItem="t88-2m-yEp" secondAttribute="centerX" id="T9H-72-tLL"/>
                             <constraint firstItem="r4X-Mj-Miz" firstAttribute="trailing" secondItem="HdP-rS-q72" secondAttribute="trailing" id="TMt-lw-BVa"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="bYn-F9-1ee" secondAttribute="trailing" constant="51" id="bPZ-Zb-8Tk"/>
                             <constraint firstItem="p4C-jR-gWF" firstAttribute="top" secondItem="8zO-RK-ya3" secondAttribute="bottom" constant="37" id="m5D-Cv-C0f"/>
                             <constraint firstItem="r4X-Mj-Miz" firstAttribute="leading" secondItem="HdP-rS-q72" secondAttribute="leading" id="x5U-0c-Hff"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="AvU-9H-Fkc"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="AvU-9H-Fkc"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="getDirectionsButton" destination="r4X-Mj-Miz" id="Wkh-vg-deZ"/>
                         <outlet property="inviteButton" destination="HdP-rS-q72" id="hTS-Hq-nN0"/>
                         <outlet property="nameLabel" destination="p4C-jR-gWF" id="CxL-Fp-nyx"/>
-                        <outlet property="phoneLabel" destination="bYn-F9-1ee" id="77Y-YS-v0n"/>
+                        <outlet property="phoneButton" destination="AvU-9H-Fkc" id="Glk-Lp-mOm"/>
                         <outlet property="urlButton" destination="OmV-cT-gDH" id="TEP-4Q-pIB"/>
                     </connections>
                 </viewController>

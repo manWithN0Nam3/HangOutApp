@@ -9,6 +9,7 @@
 #import "DetailVCViewController.h"
 
 @interface DetailVCViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *phoneButton;
 
 
 @end
@@ -19,6 +20,7 @@
     [super viewDidLoad];
     self.nameLabel.text = self.mapItem.name;
 
+    [self.phoneButton setTitle:self.mapItem.phoneNumber forState:UIControlStateNormal];
     self.phoneLabel.text = self.mapItem.phoneNumber;
     if (self.mapItem.url == nil) {
         self.urlButton.alpha = 0;
@@ -31,9 +33,23 @@
 
 }
 
+- (IBAction)phoneButtonTapped:(id)sender {
+
+    NSString *phoneNumber = [@"telprompt://" stringByAppendingString:self.phoneButton.titleLabel.text];
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+}
 
 
 - (IBAction)getDirectionsButtonTapped:(id)sender {
+
+   MKMapItem *endingItem = [[MKMapItem alloc] initWithPlacemark:self.mapItem.placemark];
+
+    NSMutableDictionary *launchOptions = [[NSMutableDictionary alloc] init];
+    [launchOptions setObject:MKLaunchOptionsDirectionsModeDriving forKey:MKLaunchOptionsDirectionsModeKey];
+
+    [endingItem openInMapsWithLaunchOptions:launchOptions];
+
 }
 
 - (IBAction)inviteButtonTapped:(id)sender {
